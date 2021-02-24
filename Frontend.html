@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student Name in Blockchain Class</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="./node_modules/web3/dist/web3.min.js">
+    </script>
+</head>
+
+<body>
+    <div class="root" >
+        <div style="width: 80%;" align="center">
+            <h1 style="font-size: 300%; background-color: darkblue; width: 80%; color: white;">GAYRAY CAFE</h1>
+            <div style="display: flex; width: 80%;">
+                <h2 style="width: 50%; color: rgb(58, 0, 124);">อาหาร ของหวาน</h2>
+                <h2 style="width: 50%; color: rgb(58, 0, 124);">เครื่องดื่ม</h2>
+            </div>
+
+            <div style="display: flex; justify-content: center;">
+                <!-- อาหาร ของหวาน -->
+                <table class="menutable">
+                    <tr style="background-color: antiquewhite;">
+                        <td class="tdimage"></td>
+                        <td class="tdname" style="font-weight: bold; color:darkred; border-bottom: 2px solid darkgray;"><h3>เมนู</h3></td>
+                        <td class="tdprice" style="font-weight: bold; color:darkred; border-bottom: 2px solid darkgray;"><h3>ราคา</h3></td>
+                        <th class="thorder" style="border-bottom: 2px solid darkgray;"></th>
+                    </tr>
+                    <tr>
+                        <td class="tdimage"><img src="/Image/MRE.jpg" alt="MRE" style="width: 192px; height: 192px;"></td>
+                        <td class="tdname"><h4>MRE</h4></td>
+                        <td class="tdprice"><h4>0.02 ETH</h4></td>
+                        <th class="thorder"><button id=btnordermre>ORDER</button></th>
+                    </tr>
+                    <tr>
+                        <td class="tdimage"><img src="/Image/Leng.jpg" alt="Leng" style="width: 192px; height: 192px;"></td>
+                        <td class="tdname"><h4>ต้มเล้ง</h4></td>
+                        <td class="tdprice"><h4>0.022 ETH</h4></td>
+                        <th class="thorder"><button id=btnorderleng>ORDER</button></th>
+                    </tr>
+                    <tr>
+                        <td class="tdimage"><img src="/Image/Shawkuay.jpg" alt="ShawKuay"style="width: 192px; height: 192px;"></td>
+                        <td class="tdname"><h4>เฉาก๊วยชากังราว</h4></td>
+                        <td class="tdprice"><h4>0.012 ETH</h4></td>
+                        <th class="thorder"><button id=btnordershawkuay>ORDER</button></th>
+                    </tr>
+                </table>
+
+                <!-- เครื่องดื่ม -->
+                <table class="menutable">
+                    <tr style="background-color: antiquewhite;">
+                        <td class="tdimage"></td>
+                        <td class="tdname" style="font-weight: bold; color:darkred; border-bottom: 2px solid darkgray;"><h3>เมนู</h3></td>
+                        <td class="tdprice" style="font-weight: bold; color:darkred; border-bottom: 2px solid darkgray;"><h3>ราคา</h3></td>
+                        <th class="thorder" style="border-bottom: 2px solid darkgray;"></th>
+                    </tr>
+                    <tr>
+                        <td class="tdimage"><img src="/Image/Charchuk.jpg" alt="Charchuk"style="width: 192px; height: 192px;"></td>
+                        <td class="tdname"><h4>ชาชัก</h4></td>
+                        <td class="tdprice"><h4>0.01 ETH</h4></td>
+                        <th class="thorder"><button id=btnordercharchuk>ORDER</button></th>
+                    </tr>
+                    <tr>
+                        <td class="tdimage"><img src="/Image/Namtom.jpg" alt="Namtom"style="width: 192px; height: 192px;"></td>
+                        <td class="tdname"><h4>น้ำท่อม</h4></td>
+                        <td class="tdprice"><h4>0.012 ETH</h4></td>
+                        <th class="thorder"><button id=btnordernamtom>ORDER</button></th>
+                    </tr>
+                    <tr>
+                        <td class="tdimage"><img src="/Image/Milo.jpg" alt="Milo" style="width: 192px; height: 192px;"></td>
+                        <td class="tdname"><h4>ไมโล</h4></td>
+                        <td class="tdprice"><h4>0.012 ETH</h4></td>
+                        <th class="thorder"><button id=btnordermilo>ORDER</button></th>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="width: 50%;">
+                <h3>สถานะ</h3>
+                <p id="result"></p>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3>Order</h3>
+                <table class="ordertable" id="tableoforderhead">
+                    <tr id="Header" style="background-color: antiquewhite;">
+                        <th style="width: 25%; text-align: left; color:darkred;">เวลาที่ทำการ Order</th>
+                        <th style="width: 25%; text-align: left; color:darkred;">ชื่อเมนู</th>
+                        <th style="width: 50%; text-align: left; color:darkred;">address</th>
+                    </tr>
+                </table>
+                <table class="ordertable" id="tableoforder">
+                    <tr id="Header">
+                        <th style="width: 25%; text-align: left;"></th>
+                        <th style="width: 25%; text-align: left;"></th>
+                        <th style="width: 50%; text-align: left;"></th>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+    </script>
+    <script>
+        if (typeof web3 !== 'undefined') {
+            // this statement is executed if you are using 
+            // MetaMask 
+            async function enableAccounts() {
+                await ethereum.enable()
+            }
+            enableAccounts();
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(
+                new Web3.providers.HttpProvider(
+                    "http://localhost:8545"));
+        }
+
+        let abi = [
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": false,
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "string",
+                            "name": "text",
+                            "type": "string"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "uint256",
+                            "name": "datetime",
+                            "type": "uint256"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "bytes32",
+                            "name": "hash",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "name": "NameAdded",
+                    "type": "event"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": false,
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "string",
+                            "name": "text",
+                            "type": "string"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "string",
+                            "name": "reason",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "RegistrationError",
+                    "type": "event"
+                },
+                {
+                    "constant": true,
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "index",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "getAddress",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "index",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "getName",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "getOrderLength",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "index",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "getTimestamp",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "name",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "registration",
+                    "outputs": [],
+                    "payable": true,
+                    "stateMutability": "payable",
+                    "type": "function"
+                }
+            ];
+        var contract = web3.eth.contract(abi);
+        var myContract = contract.at(
+            '0x822Fca8F0827F01C2466813d1A0AC3B68E077CBa');
+
+        var completeEvent =
+            myContract.NameAdded();
+
+        var refreshtable = false;
+
+        completeEvent.watch(function (error, result) {
+            if (!error) {
+                //$("#result").html("Got it");               
+                if (result.args.from == web3.eth.defaultAccount) {
+                    $("#result").html("คุณได้สั่งซื้อ " + result.args.text);
+                    if (refreshtable == true) {
+                        getValueofOrder();
+                        refreshtable = false;
+                    }
+                }
+            }
+        });
+
+        var errorEvent =
+            myContract.RegistrationError();
+
+        errorEvent.watch(function (error, result) {
+            refreshtable == false;
+            if (!error) {
+                if (result.args.from ==
+                    web3.eth.defaultAccount) {
+                    $("#result").html(
+                        "Error. <br/> Name: " +
+                        result.args.text +
+                        "<br/> Reason: " + result.args.reason);
+                }
+            }
+        });
+
+        $("#btnCheck").click(function () {
+            getValueofOrder();
+        });
+
+        // Order อาหาร ของหวาน
+        $("#btnordermre").click(function () { RegisOrder(20000000000000000, "MRE") });
+        $("#btnorderleng").click(function () { RegisOrder(22000000000000000, "ต้มเล้ง") });
+        $("#btnordershawkuay").click(function () { RegisOrder(12000000000000000, "เฉาก๊วยชากังราว") });
+
+        // Order เครื่องดื่ม
+        $("#btnordercharchuk").click(function () { RegisOrder(10000000000000000, "ชาชัก") });
+        $("#btnordernamtom").click(function () { RegisOrder(12000000000000000, "น้ำท่อม") });
+        $("#btnordermilo").click(function () { RegisOrder(12000000000000000, "ไมโล") });
+
+        async function getValueofOrder() {
+            var timestamp;
+            var address;
+            var ordername;
+            var i = 0;
+            await ResetTable();
+            myContract.getOrderLength((error, result) => {
+                if (!error) {
+                    setTimeout(function () {
+                        LoopInsert(parseInt(result.toString()));
+                    }, 500);
+                } else
+                    console.error(error);
+            });
+
+            function LoopInsert(index) {
+                if (index > 0) {
+                    myContract.getTimestamp(i, (error, result) => {
+                        if (!error) {
+                            //timestamp = Date(result).toString();
+                            timestamp = Convert2ReadableDate(result);
+                            myContract.getAddress(i, (error, result) => {
+                                if (!error) {
+                                    address = result.toString();
+                                    myContract.getName(i, (error, result) => {
+                                        if (!error) {
+                                            ordername = result.toString();
+                                            if (i < index) {
+                                                Addorder(timestamp, ordername, address);
+                                                i++;
+                                                LoopInsert(index);
+                                            }
+                                        } else
+                                            console.error(error);
+                                    });
+                                } else
+                                    console.error(error);
+                            });
+
+                        } else
+                            console.error(error);
+                    });
+                }
+            }
+        }
+
+        function RegisOrder(value, ordername) {
+            refreshtable = true;
+            myContract.registration(ordername,
+                {
+                    gas: 300000,
+                    from: web3.eth.accounts[0],
+                    value: value
+                },
+                (error, result) => {
+                    $("#result").html("พี่หลามกำลังยืนยันการสั่งซื้อ....");
+                });
+        }
+
+        function Addorder(timestamp, ordername, address, i) {
+            var table = document.getElementById("tableoforder");
+
+            //$("#result").html(`${timestamp.toString()} ${ordername.toString()} ${address.toString()}`);
+            var rowcount = table.rows.length;
+            var row = table.insertRow(rowcount);
+
+            row.insertCell(0).innerHTML = timestamp;
+            row.insertCell(1).innerHTML = ordername;
+            row.insertCell(2).innerHTML = address;
+        }
+
+        function ResetTable() {
+            var table = document.getElementById("tableoforder");
+            //$("#result").html(table.rows.length);
+            while (table.rows.length > 1) {
+                table.deleteRow(table.rows.length - 1);
+            }
+        }
+
+        function Convert2ReadableDate(timestamp) {
+            var date = new Date(timestamp * 1000);
+            var month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            return (
+                date.getDate().toString() + "-" +
+                month[date.getMonth()] + "-" +
+                date.getFullYear().toString() + " " +
+                (date.getHours() % 10 == date.getHours() ? "0" + date.getHours().toString() : date.getHours().toString()) + ":" +
+                (date.getMinutes() % 10 == date.getMinutes() ? "0" + date.getMinutes().toString() : date.getMinutes().toString()) + ":" +
+                (date.getSeconds() % 10 == date.getSeconds() ? "0" + date.getSeconds().toString() : date.getSeconds().toString())
+            )
+        }
+
+        window.onload = getValueofOrder();
+
+    </script>
+</body>
+
+</html>
