@@ -45,31 +45,31 @@ contract ProofofGayray {
     }
     
     if (msg.value != 0.022 ether && hashing(name) == hashing("ต้มเล้ง")) {
-        emit RegistrationError(msg.sender, name, "ราคา ต้มเล้ง อยู่ที่ 0.022");
+        emit RegistrationError(msg.sender, name, "ราคา ต้มเล้ง อยู่ที่ 0.022 ETH");
         msg.sender.transfer(msg.value);
         return;
     }
     
     if (msg.value != 0.012 ether && hashing(name) == hashing("เฉาก๊วยชากังราว")) {
-        emit RegistrationError(msg.sender, name, "ราคา เฉาก๊วยชากังราว อยู่ที่ 0.012");
+        emit RegistrationError(msg.sender, name, "ราคา เฉาก๊วยชากังราว อยู่ที่ 0.012 ETH");
         msg.sender.transfer(msg.value);
         return;
     }
     
     if (msg.value != 0.012 ether && hashing(name) == hashing("น้ำท่อม")) {
-        emit RegistrationError(msg.sender, name, "ราคา น้ำท่อม อยู่ที่ 0.012");
+        emit RegistrationError(msg.sender, name, "ราคา น้ำท่อม อยู่ที่ 0.012 ETH");
         msg.sender.transfer(msg.value);
         return;
     }
       
     if (msg.value != 0.012 ether && hashing(name) == hashing("ไมโล")) {
-        emit RegistrationError(msg.sender, name, "ราคา ไมโล อยู่ที่ 0.012");
+        emit RegistrationError(msg.sender, name, "ราคา ไมโล อยู่ที่ 0.012 ETH");
         msg.sender.transfer(msg.value);
         return;
     }
     
     if (msg.value != 0.01 ether && hashing(name) == hashing("ชาชัก")) {
-        emit RegistrationError(msg.sender, name, "ราคา ชาชัก อยู่ที่ 0.01");
+        emit RegistrationError(msg.sender, name, "ราคา ชาชัก อยู่ที่ 0.01 ETH");
         msg.sender.transfer(msg.value);
         return;
     }
